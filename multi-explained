@@ -1,0 +1,45 @@
+Normal
+Dockerfile.normal
+       |
+       ↓
+FROM node:20
+       |
+       ↓
+Install dependencies
+       |
+       ↓
+Copy application
+       |
+       ↓
+ONE FINAL IMAGE
+       |
+       ↓
+Container
+============================================================================
+Multi-stage
+Dockerfile.multistage
+
+       STAGE 1
+       BUILDER
+          |
+          | Install dependencies
+          | Copy application
+          |
+          ↓
+       STAGE 2
+      PRODUCTION
+          |
+          | Copy required files
+          ↓
+      FINAL IMAGE
+          |
+          ↓
+      Container
+
+And point to this line:
+
+COPY --from=builder /app/server.js .
+
+Tell them:
+
+--from=builder means take the file from the previous build stage.
