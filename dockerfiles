@@ -68,3 +68,27 @@ COPY --from=builder /app/target/*.war /usr/local/tomcat/webapps/ROOT.war
 EXPOSE 8080
 
 CMD ["catalina.sh", "run"]
+
+Developer Code
+      ↓
+   pom.xml
+      ↓
+┌─────────────────────────┐
+│ Stage 1: Maven          │
+│                         │
+│ mvn clean package       │
+│         ↓               │
+│      app.war            │
+└────────────┬────────────┘
+             │
+             │ COPY --from=builder
+             ↓
+┌─────────────────────────┐
+│ Stage 2: Tomcat         │
+│                         │
+│       ROOT.war          │
+│          ↓              │
+│       Tomcat            │
+│          ↓              │
+│       Port 8080         │
+└─────────────────────────┘
